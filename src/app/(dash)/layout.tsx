@@ -24,24 +24,30 @@ const Layout: FC<PropsWithChildren> = ({ children }) => {
           <h1 className="m-0 px-1 text-xl leading-none">crashed.nis</h1>
         </div>
         <div className="flex flex-row justify-center text-center">
-          <a href={env.NEXT_PUBLIC_REPO_LINK} target="_blank" rel="noopener">
-            <Button variant="link" className="mx-1 p-1 px-2">
-              <GithubLogo size={24} className="mx-1" />
-              <span className="hidden sm:flex">Исходный код</span>
-            </Button>
-          </a>
-          <a href={env.NEXT_PUBLIC_CONTACT_LINK} target="_blank" rel="noopener">
-            <Button variant="link" className="mx-1 p-1 px-2">
-              <Ghost size={24} className="mx-1" />
-              <span className="hidden sm:flex">Разработчик</span>
-            </Button>
-          </a>
-          <a href={env.NEXT_PUBLIC_DONATE_LINK} target="_blank" rel="noopener">
-            <Button variant="link" className="mx-1 p-1 px-2">
-              <PiggyBank size={24} className="mx-1 mr-2" />{' '}
-              <span className="hidden sm:flex">Поддержать</span>
-            </Button>
-          </a>
+          {env.NEXT_PUBLIC_REPO_LINK && (
+            <a href={env.NEXT_PUBLIC_REPO_LINK} target="_blank" rel="noopener">
+              <Button variant="link" className="mx-1 p-1 px-2">
+                <GithubLogo size={24} className="mx-1" />
+                <span className="hidden sm:flex">Исходный код</span>
+              </Button>
+            </a>
+          )}
+          {env.NEXT_PUBLIC_CONTACT_LINK && (
+            <a href={env.NEXT_PUBLIC_CONTACT_LINK} target="_blank" rel="noopener">
+              <Button variant="link" className="mx-1 p-1 px-2">
+                <Ghost size={24} className="mx-1" />
+                <span className="hidden sm:flex">Разработчик</span>
+              </Button>
+            </a>
+          )}
+          {env.NEXT_PUBLIC_DONATE_LINK && (
+            <a href={env.NEXT_PUBLIC_DONATE_LINK} target="_blank" rel="noopener">
+              <Button variant="link" className="mx-1 p-1 px-2">
+                <PiggyBank size={24} className="mx-1 mr-2" />{' '}
+                <span className="hidden sm:flex">Поддержать</span>
+              </Button>
+            </a>
+          )}
         </div>
       </footer>
     </>

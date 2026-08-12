@@ -17,9 +17,9 @@ export const env = createEnv({
    * `NEXT_PUBLIC_`.
    */
   client: {
-    NEXT_PUBLIC_CONTACT_LINK: z.string().url(),
-    NEXT_PUBLIC_REPO_LINK: z.string().url(),
-    NEXT_PUBLIC_DONATE_LINK: z.string().url(),
+    NEXT_PUBLIC_CONTACT_LINK: z.string().url().optional(),
+    NEXT_PUBLIC_REPO_LINK: z.string().url().optional(),
+    NEXT_PUBLIC_DONATE_LINK: z.string().url().optional(),
   },
 
   /**

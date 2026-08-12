@@ -9,6 +9,7 @@ export const env = createEnv({
   server: {
     NODE_ENV: z.enum(['development', 'test', 'production']).default('development'),
     RUNTIME: z.enum(['edge', 'node']).default('node'),
+    SUPABASE_SERVICE_ROLE_KEY: z.string().min(1),
   },
 
   /**
@@ -17,6 +18,8 @@ export const env = createEnv({
    * `NEXT_PUBLIC_`.
    */
   client: {
+    NEXT_PUBLIC_SUPABASE_URL: z.string().url(),
+    NEXT_PUBLIC_SUPABASE_ANON_KEY: z.string().min(1),
     NEXT_PUBLIC_CONTACT_LINK: z.string().url().optional(),
     NEXT_PUBLIC_REPO_LINK: z.string().url().optional(),
     NEXT_PUBLIC_DONATE_LINK: z.string().url().optional(),
@@ -29,6 +32,9 @@ export const env = createEnv({
   runtimeEnv: {
     NODE_ENV: process.env.NODE_ENV,
     RUNTIME: process.env.RUNTIME,
+    SUPABASE_SERVICE_ROLE_KEY: process.env.SUPABASE_SERVICE_ROLE_KEY,
+    NEXT_PUBLIC_SUPABASE_URL: process.env.NEXT_PUBLIC_SUPABASE_URL,
+    NEXT_PUBLIC_SUPABASE_ANON_KEY: process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY,
     NEXT_PUBLIC_CONTACT_LINK: process.env.NEXT_PUBLIC_CONTACT_LINK,
     NEXT_PUBLIC_REPO_LINK: process.env.NEXT_PUBLIC_REPO_LINK,
     NEXT_PUBLIC_DONATE_LINK: process.env.NEXT_PUBLIC_DONATE_LINK,

@@ -7,12 +7,10 @@ import {
   TableHeader,
   TableRow,
 } from '@/components/ui/table'
-import { ReportCard } from '@/shared/types'
+import { ReportRow } from '@/shared/types'
 import { FormattedMark } from '@/widgets/reports/ReportTable'
 
-const ReportDetails: FC<{
-  report: ReportCard[number]['reportCard'][number]
-}> = ({ report }) => {
+const ReportDetails: FC<{ report: ReportRow }> = ({ report }) => {
   return (
     <>
       <Table>
@@ -27,14 +25,14 @@ const ReportDetails: FC<{
         <TableBody>
           <TableRow>
             <TableCell>
-              <FormattedMark mark={report.firstPeriod?.ru} />
+              <FormattedMark mark={report.firstPeriod} />
             </TableCell>
             <TableCell>
-              <FormattedMark mark={report.secondPeriod?.ru} />
+              <FormattedMark mark={report.secondPeriod} />
             </TableCell>
             <TableCell></TableCell>
             <TableCell>
-              <FormattedMark mark={report.yearMark?.ru} />
+              <FormattedMark mark={report.firstHalfYearMark} />
             </TableCell>
           </TableRow>
         </TableBody>
@@ -52,14 +50,14 @@ const ReportDetails: FC<{
         <TableBody>
           <TableRow>
             <TableCell>
-              <FormattedMark mark={report.thirdPeriod?.ru} />
+              <FormattedMark mark={report.thirdPeriod} />
             </TableCell>
             <TableCell>
-              <FormattedMark mark={report.fourthPeriod?.ru} />
+              <FormattedMark mark={report.fourthPeriod} />
             </TableCell>
             <TableCell></TableCell>
             <TableCell>
-              <FormattedMark mark={report.secondHalfYearMark?.ru} />
+              <FormattedMark mark={report.secondHalfYearMark} />
             </TableCell>
           </TableRow>
         </TableBody>
@@ -77,14 +75,14 @@ const ReportDetails: FC<{
         <TableBody>
           <TableRow>
             <TableCell>
-              <FormattedMark mark={report.yearMark?.ru} />
+              <FormattedMark mark={report.yearMark} />
             </TableCell>
             <TableCell>
-              <FormattedMark mark={report.examMark?.ru} />
+              <FormattedMark mark={report.examMark} />
             </TableCell>
             <TableCell></TableCell>
             <TableCell>
-              <FormattedMark mark={report.resultMark?.ru} />
+              <FormattedMark mark={report.resultMark} />
             </TableCell>
           </TableRow>
         </TableBody>

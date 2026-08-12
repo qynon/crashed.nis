@@ -16,11 +16,11 @@ const compareFunction =
   ) => {
     switch (sort) {
       case 'asc':
-        return a.name.ru.localeCompare(b.name.ru)
+        return a.name.localeCompare(b.name)
       case 'score-up':
-        return a.currScore - b.currScore
+        return (a.currScore ?? 0) - (b.currScore ?? 0)
       default:
-        return b.currScore - a.currScore
+        return (b.currScore ?? 0) - (a.currScore ?? 0)
     }
   }
 
@@ -38,7 +38,7 @@ const JournalList: FC<JournalProps> = ({ journal }) => {
         sortedJournal.map((subject, index) => (
           <JournalElement
             key={`journal-element-${index}`}
-            subject={subject.name.ru}
+            subject={subject.name}
             subjectId={subject.id}
             quarter={journal.number.toString()}
             currentScore={subject.currScore}

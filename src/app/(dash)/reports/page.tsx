@@ -17,17 +17,18 @@ import ReportTable from '@/widgets/reports/ReportTable'
 const Page = () => {
   const { data, isLoading, isError } = useReports()
 
-  const [selectedSchoolYear, setSelectedSchoolYear] =
-    useState<ReportCard[number]>()
+  const [selectedSchoolYear, setSelectedSchoolYear] = useState<ReportCard>()
 
   if (isError) return <ReportCardError />
   if (isLoading) return <ReportsLoading />
   if (!data) return null
 
   if (!selectedSchoolYear) {
-    const defaultSchoolYear = data.find((report) => report.schoolYear.isCurrent)
+    const defaultSchoolYear =
+      data.find((report) => report.schoolYear.isCurrent) ?? data[0]
     if (defaultSchoolYear) setSelectedSchoolYear(defaultSchoolYear)
   }
+
   return (
     <div className="sm:mb-[3.5rem]">
       <Select
@@ -47,7 +48,7 @@ const Page = () => {
               value={report.schoolYear.id}
               key={`school-year-${report.schoolYear.id}`}
             >
-              {report.schoolYear.name.ru}
+              {report.schoolYear.name}
             </SelectItem>
           ))}
         </SelectContent>

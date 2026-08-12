@@ -16,16 +16,17 @@ const getMarkColor = (mark: number): string => {
 
 type JournalCardProps = {
   subject: string
-  currentScore: number
-  mark?: number
+  currentScore: number | null
+  mark?: number | null
 }
 
 const JournalCard: FC<JournalCardProps> = ({ subject, mark, currentScore }) => {
-  const scoreColor = getColor(currentScore)
-  const markTextColor = getMarkColor(mark!)
+  const score = currentScore ?? 0
+  const scoreColor = getColor(score)
+  const markTextColor = mark ? getMarkColor(mark) : undefined
 
   const scoreBarStyle = {
-    background: `linear-gradient(to right, ${scoreColor.primary} ${currentScore}%, ${scoreColor.bg} ${currentScore}%)`,
+    background: `linear-gradient(to right, ${scoreColor.primary} ${score}%, ${scoreColor.bg} ${score}%)`,
   }
 
   return (
@@ -49,7 +50,8 @@ const JournalCard: FC<JournalCardProps> = ({ subject, mark, currentScore }) => {
             className={`scroll-m-20 text-2xl font-bold tracking-tight`}
             style={{ color: scoreColor.primary }}
           >
-            {currentScore}%
+            {currentScore ?? '—'}
+            {currentScore !== null && '%'}
           </h3>
           {mark && (
             <h3

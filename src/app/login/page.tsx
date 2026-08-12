@@ -11,7 +11,7 @@ const Page = () => {
       </h2>
 
       <p className="w-full text-left leading-7 text-muted-foreground">
-        Используйте свой аккаунт СУШ
+        Войдите, используя email и пароль, выданные администратором
       </p>
 
       <AuthForm />

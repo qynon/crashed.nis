@@ -1,15 +1,8 @@
 'use server'
 
-import { cookies } from 'next/headers'
+import { createClient } from '@/lib/supabase/server'
 
 export const logout = async () => {
-  cookies().set('Access', '', {
-    maxAge: 0,
-    expires: new Date(0),
-  })
-
-  cookies().set('Refresh', '', {
-    maxAge: 0,
-    expires: new Date(0),
-  })
+  const supabase = await createClient()
+  await supabase.auth.signOut()
 }

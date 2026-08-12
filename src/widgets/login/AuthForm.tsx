@@ -15,53 +15,14 @@ import { z } from 'zod'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { ArrowRight, Spinner } from '@phosphor-icons/react'
 import { login } from '@/server/actions/login'
-import { useRouter } from 'next-nprogress-bar'
+import { useRouter } from 'next/navigation'
 
 const schema = z.object({
-  iin: z
-    .string({
-      invalid_type_error: 'ИИН должен быть строкой',
-      required_error: 'ИИН обязателен',
-    })
-    .length(12, { message: 'ИИН должен быть из 12 символов' })
-    .refine(
-      (iin) => {
-        if (isNaN(parseInt(iin))) return false
-
-        const year = parseInt(iin.slice(0, 2))
-        const month = parseInt(iin.slice(2, 4))
-        const day = parseInt(iin.slice(4, 6))
-
-        if (month > 12 || month < 1) {
-          return false
-        }
-
-        if (day < 1 || day > 31) {
-          return false
-        }
-
-        if (month === 2) {
-          const isLeapYear =
-            (year % 4 === 0 && year % 100 !== 0) || year % 400 === 0
-          if (isLeapYear && day > 29) {
-            return false
-          } else if (!isLeapYear && day > 28) {
-            return false
-          }
-        }
-
-        const monthsWith30Days = [4, 6, 9, 11]
-        return !(monthsWith30Days.includes(month) && day > 30)
-      },
-      {
-        message: 'Некорректный ИИН',
-      },
-    ),
+  email: z
+    .string({ required_error: 'Email обязателен' })
+    .email('Некорректный email'),
   password: z
-    .string({
-      invalid_type_error: 'Пароль должен быть строкой',
-      required_error: 'Пароль обязателен',
-    })
+    .string({ required_error: 'Пароль обязателен' })
     .min(6, 'Пароль должен быть не менее 6 символов'),
 })
 
@@ -74,15 +35,16 @@ const AuthForm = () => {
 
   const router = useRouter()
 
-  const onSubmit: SubmitHandler<AuthFormType> = async ({ iin, password }) => {
-    await login(iin, password).then((res) => {
-      if (res.success) router.push('/')
-      else {
-        if (res.errors?.iin) form.setError('iin', { message: res.errors?.iin })
-        if (res.errors?.password)
-          form.setError('password', { message: res.errors?.password })
-      }
-    })
+  const onSubmit: SubmitHandler<AuthFormType> = async ({ email, password }) => {
+    const res = await login(email, password)
+    if (res.success) {
+      router.push('/dash')
+      router.refresh()
+    } else {
+      if (res.errors?.email) form.setError('email', { message: res.errors.email })
+      if (res.errors?.password)
+        form.setError('password', { message: res.errors.password })
+    }
   }
 
   return (
@@ -90,13 +52,18 @@ const AuthForm = () => {
       <form onSubmit={form.handleSubmit(onSubmit)} className="w-full">
         <FormField
           control={form.control}
-          name="iin"
+          name="email"
           render={({ field }) => (
             <FormItem className="mb-1 mt-1">
               <FormControl>
-                <Input placeholder="ИИН" autoComplete="username" {...field} />
+                <Input
+                  placeholder="Email"
+                  autoComplete="username"
+                  type="email"
+                  {...field}
+                />
               </FormControl>
-              <FormMessage className="pb-1 leading-none text-red-600" />
+              <FormMessage className="pb-1 leading-none text-destructive" />
             </FormItem>
           )}
         />
@@ -113,7 +80,7 @@ const AuthForm = () => {
                   {...field}
                 />
               </FormControl>
-              <FormMessage className="pb-1 leading-none text-red-600" />
+              <FormMessage className="pb-1 leading-none text-destructive" />
             </FormItem>
           )}
         />

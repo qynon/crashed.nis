@@ -14,7 +14,7 @@ import { Button } from '@/components/ui/button'
 import ResponsiveModal from '@/components/ui/responsive-modal'
 import { SignOut } from '@phosphor-icons/react'
 import { logout } from '@/server/actions/logout'
-import { useRouter } from 'next-nprogress-bar'
+import { useRouter } from 'next/navigation'
 import { useQueryClient } from '@tanstack/react-query'
 
 const Page = () => {

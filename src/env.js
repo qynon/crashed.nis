@@ -7,8 +7,8 @@ export const env = createEnv({
    * isn't built with invalid env vars.
    */
   server: {
-    NODE_ENV: z.enum(['development', 'test', 'production']),
-    RUNTIME: z.enum(['edge', 'node']),
+    NODE_ENV: z.enum(['development', 'test', 'production']).default('development'),
+    RUNTIME: z.enum(['edge', 'node']).default('node'),
   },
 
   /**
